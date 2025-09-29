@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Fikri Raihan Pratama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark': '#0a0a0a',
+                        'darker': '#050505',
+                        'accent': '#ff0040',
+                        'secondary': '#ffffff',
+                        'muted': '#666666'
+                    },
+                    animation: {
+                        'matrix': 'matrix 20s linear infinite',
+                        'slide-up': 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'glitch': 'glitch 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float-slow': 'floatSlow 4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        matrix: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(60px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        glitch: {
+                            '0%, 100%': { transform: 'translate(0)' },
+                            '20%': { transform: 'translate(-2px, 2px)' },
+                            '40%': { transform: 'translate(-2px, -2px)' },
+                            '60%': { transform: 'translate(2px, 2px)' },
+                            '80%': { transform: 'translate(2px, -2px)' }
+                        },
+                        floatSlow: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .matrix-bg::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 0, 64, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 0, 64, 0.08) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .code-bg {
+            background: 
+                linear-gradient(90deg, transparent 79px, rgba(255,0,64,0.03) 81px, rgba(255,0,64,0.03) 82px, transparent 84px),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 84px 20px;
+        }
+        
+        .terminal-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #ff0040;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #ff0040 0%, #ff0040 var(--progress), transparent var(--progress));
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .glass {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neo-card {
+            background: linear-gradient(145deg, #0f0f0f, #0a0a0a);
+            box-shadow: 
+                20px 20px 40px rgba(0,0,0,0.9),
+                -20px -20px 40px rgba(20,20,20,0.1);
+        }
+
+        .matrix-line {
+            position: absolute;
+            top: -100vh;
+            left: 0;
+            width: 100%;
+            height: 200vh;
+            background-image: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 98px,
+                rgba(0, 255, 65, 0.03) 100px
+            );
+            animation: matrix 20s linear infinite;
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff0040;
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            33% { transform: translateY(-20px) translateX(10px); }
+            66% { transform: translateY(-10px) translateX(-10px); }
+        }
+        
+        .profile-image {
+            background: linear-gradient(145deg, #0f0f0f, #0a0a0a);
+            border: 2px solid rgba(255, 0, 64, 0.3);
+            box-shadow: 
+                0 0 20px rgba(255, 0, 64, 0.2),
+                20px 20px 40px rgba(0,0,0,0.9),
+                -20px -20px 40px rgba(20,20,20,0.1);
+        }
+        
+        .profile-image:hover {
+            border-color: rgba(255, 0, 64, 0.6);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 64, 0.4),
+                20px 20px 40px rgba(0,0,0,0.9),
+                -20px -20px 40px rgba(20,20,20,0.1);
+        }
+        
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(255, 0, 64, 0.6));
+        }
+        
+        .tech-category {
+            transition: all 0.5s ease;
+        }
+        
+        .tech-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #0f0f0f, #0a0a0a);
+            border: 2px solid rgba(255, 0, 64, 0.3);
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .project-image {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .project-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 0, 64, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-darker text-white matrix-bg code-bg">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-xl font-mono font-bold text-accent">
+                    &lt;/DEV&gt;
+                </div>
+                <div class="hidden md:flex space-x-8 font-mono text-sm">
+                    <a href="#home" class="hover:text-accent transition-colors duration-300">[HOME]</a>
+                    <a href="#about" class="hover:text-accent transition-colors duration-300">[ABOUT]</a>
+                    <a href="#skills" class="hover:text-accent transition-colors duration-300">[SKILLS]</a>
+                    <a href="#work" class="hover:text-accent transition-colors duration-300">[WORK]</a>
+                    <a href="#contact" class="hover:text-accent transition-colors duration-300">[CONTACT]</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-accent">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="md:hidden glass border-t border-white/10 hidden">
+            <div class="px-4 py-2 space-y-1 font-mono text-sm">
+                <a href="#home" class="block px-3 py-2 hover:text-accent">[HOME]</a>
+                <a href="#about" class="block px-3 py-2 hover:text-accent">[ABOUT]</a>
+                <a href="#skills" class="block px-3 py-2 hover:text-accent">[SKILLS]</a>
+                <a href="#work" class="block px-3 py-2 hover:text-accent">[WORK]</a>
+                <a href="#contact" class="block px-3 py-2 hover:text-accent">[CONTACT]</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="matrix-line"></div>
+            <div class="floating-particles" id="particles-container"></div>
+        </div>
+        
+        <div class="text-center z-10 max-w-4xl mx-auto px-4">
+            <div class="mb-8">
+                <div class="w-32 h-32 mx-auto relative">
+                    <div class="w-full h-full bg-black border-2 border-accent rounded-lg flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent"></div>
+                        <i class="fas fa-terminal text-4xl text-accent z-10"></i>
+                    </div>
+                    <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-accent rounded-full animate-pulse"></div>
+                </div>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-bold mb-4 text-shadow">
+                <span class="text-white">FIKRI</span>
+                <span class="text-white">RAIHAN</span>
+                <span class="text-white">PRATAMA</span>
+            </h1>
+            
+            <div class="text-xl md:text-2xl font-mono mb-8 text-muted">
+                <span class="terminal-cursor" id="typing-text">Full Stack Developer</span>
+            </div>
+            
+            <p class="text-lg mb-12 text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Elite software engineer crafting high-performance digital solutions with precision and innovation
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-accent hover:bg-red-600 text-white px-8 py-3 font-mono font-semibold hover-lift transition-all duration-300">
+                    DOWNLOAD_CV.pdf
+                </button>
+                <button class="border border-white hover:border-accent hover:text-accent px-8 py-3 font-mono font-semibold hover-lift transition-all duration-300">
+                    CONNECT_WITH_ME
+                </button>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border border-white/30 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-accent rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="text-accent">//</span> ABOUT_ME
+                </h2>
+                <div class="w-16 h-px bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="neo-card p-8 rounded-2xl hover-lift transition-all duration-500">
+                        <h3 class="text-2xl font-bold mb-6 text-accent font-mono">Junior Developer</h3>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Saya Fikri Raihan Pratama, mahasiswa tahun ketiga di Universitas Pembangunan Nasional "Veteran" Jawa Timur dengan minat besar di bidang pengembangan perangkat lunak dan teknologi web. 
+                        </p>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                           Sebagai seorang Junior Developer, saya memiliki dasar yang kuat dalam pemrograman serta pemahaman konsep pengembangan aplikasi berbasis web dan mobile.
+                        </p>
+                        <p class="text-gray-300 mb-8 leading-relaxed">
+                            Saya terbiasa menggunakan bahasa pemrograman seperti PHP (CodeIgniter, Laravel) serta memiliki pengalaman dalam pengelolaan basis data MySQL. 
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                <span class="font-mono text-sm text-gray-400">LOCATION:</span>
+                                <span>Surabaya, Indonesia</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                <span class="font-mono text-sm text-gray-400">STATUS:</span>
+                                <span class="text-green-400">Available for Freelance</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                <span class="font-mono text-sm text-gray-400">EXPERIENCE:</span>
+                                <span>1+ Years</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <div class="flex justify-center">
+                        <div class="profile-image w-96 h-96 rounded-full overflow-hidden relative transition-all duration-500">
+                            <img src="assets/gue.png" alt="Fikri Raihan Pratama" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="text-accent">//</span> TECHNICAL_SKILLS
+                </h2>
+                <div class="w-16 h-px bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Frontend -->
+                <div class="neo-card p-8 tech-category">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-code text-2xl text-accent mr-4"></i>
+                        <h3 class="text-xl font-bold font-mono">FRONTEND</h3>
+                    </div>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <i class="fab fa-html5 text-4xl text-orange-500 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">HTML5</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-css3-alt text-4xl text-blue-500 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">CSS3</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-js text-4xl text-yellow-400 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">JavaScript</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-bootstrap text-4xl text-purple-500 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">Bootstrap</p>
+                        </div>
+                        <div class="text-center">
+                            <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" 
+                            alt="Tailwind CSS Logo" 
+                            class="h-8 mx-auto tech-icon"
+                            >
+                            <p class="text-xs mt-2 font-mono">Tailwind</p>
+                        </div>
+
+                        <!-- SweetAlert2 -->
+                        <div class="text-center">
+                            <img 
+                            src="https://raw.githubusercontent.com/sweetalert2/sweetalert2/master/assets/swal2-logo.png" 
+                            alt="SweetAlert2 Logo" 
+                            class="h-8 mx-auto tech-icon"
+                            >
+                            <p class="text-xs mt-2 font-mono">SweetAlert2</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="neo-card p-8 tech-category">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-server text-2xl text-accent mr-4"></i>
+                        <h3 class="text-xl font-bold font-mono">BACKEND</h3>
+                    </div>
+                        <div class="grid grid-cols-3 gap-6">
+                        <!-- PHP -->
+                        <div class="text-center">
+                            <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg" 
+                            alt="PHP Logo" 
+                            class="h-8 mx-auto tech-icon"
+                            >
+                            <p class="text-xs mt-2 font-mono">PHP</p>
+                        </div>
+
+                        <!-- Laravel -->
+                        <div class="text-center">
+                            <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/120px-Laravel.svg.png" 
+                            alt="Laravel Logo" 
+                            class="h-8 mx-auto tech-icon"
+                            >
+                            <p class="text-xs mt-2 font-mono">Laravel</p>
+                        </div>
+
+                        <!-- MySQL -->
+                        <div class="text-center">
+                            <img 
+                            src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" 
+                            alt="MySQL Logo" 
+                            class="h-8 mx-auto tech-icon"
+                            >
+                            <p class="text-xs mt-2 font-mono">MySQL</p>
+                        </div>
+
+                        <!-- CodeIgniter -->
+                        <div class="text-center">
+                            <img 
+                            src="https://cdn.worldvectorlogo.com/logos/codeigniter.svg" 
+                            alt="CodeIgniter Logo" 
+                            class="h-8 mx-auto tech-icon"
+                            >
+                            <p class="text-xs mt-2 font-mono">CodeIgniter</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Others -->
+                <div class="neo-card p-8 tech-category">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-tools text-2xl text-accent mr-4"></i>
+                        <h3 class="text-xl font-bold font-mono">TOOLS & OTHERS</h3>
+                    </div>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <i class="fab fa-git-alt text-4xl text-orange-500 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">Git</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-github text-4xl text-gray-200 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">GitHub</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-figma text-4xl text-purple-400 tech-icon"></i>
+                            <p class="text-xs mt-2 font-mono">Figma</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="text-accent">//</span> PORTFOLIO_PROJECTS
+                </h2>
+                <div class="w-16 h-px bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Project 1 - Sistem Informasi Perpustakaan -->
+                <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
+                    <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+                        <img src="assets/rpro.png" 
+                             alt="Rprojectevent" 
+                             class="w-full h-full object-cover project-image"
+                             data-project="project1">
+                        <div class="absolute inset-0 bg-accent/10 group-hover:bg-accent/20 transition-all duration-300"></div>
+                        <div class="absolute top-4 right-4 bg-accent px-3 py-1 text-xs font-mono font-bold">
+                            CODEIGNITER
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 font-mono">R_PROJECT_EVENT_ORGANIZER</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Website Company Profile untuk mengelola konten dan portfolio.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CODEIGNITER</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">BOOTSTRAP</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://rprojectevent.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
+                                VIEW_LIVE
+                            </a>
+                            <button class="flex-1 border border-white/20 hover:border-accent py-2 text-sm font-mono font-bold hover:text-accent transition-all project-details" data-project="project1">
+                                DETAILS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 - E-Commerce Website -->
+                <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
+                    <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="E-Commerce Website" 
+                             class="w-full h-full object-cover project-image"
+                             data-project="project2">
+                        <div class="absolute inset-0 bg-accent/10 group-hover:bg-accent/20 transition-all duration-300"></div>
+                        <div class="absolute top-4 right-4 bg-accent px-3 py-1 text-xs font-mono font-bold">
+                            LARAVEL
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 font-mono">E-COMMERCE_STORE</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Platform e-commerce lengkap dengan sistem keranjang belanja, checkout, dan manajemen produk.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">LARAVEL</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">JAVASCRIPT</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://ecommerce-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
+                                VIEW_LIVE
+                            </a>
+                            <button class="flex-1 border border-white/20 hover:border-accent py-2 text-sm font-mono font-bold hover:text-accent transition-all project-details" data-project="project2">
+                                DETAILS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 - Company Profile -->
+                <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
+                    <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Company Profile Website" 
+                             class="w-full h-full object-cover project-image"
+                             data-project="project3">
+                        <div class="absolute inset-0 bg-accent/10 group-hover:bg-accent/20 transition-all duration-300"></div>
+                        <div class="absolute top-4 right-4 bg-accent px-3 py-1 text-xs font-mono font-bold">
+                            CODEIGNITER
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 font-mono">COMPANY_PROFILE</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Website company profile dengan admin panel untuk mengelola konten, portfolio, dan testimoni.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CODEIGNITER</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CSS3</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://company-profile-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
+                                VIEW_LIVE
+                            </a>
+                            <button class="flex-1 border border-white/20 hover:border-accent py-2 text-sm font-mono font-bold hover:text-accent transition-all project-details" data-project="project3">
+                                DETAILS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modals -->
+    <!-- Modal Project 1 -->
+    <div id="modal-project1" class="modal">
+        <div class="modal-content w-11/12 md:w-3/4 lg:w-1/2">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold font-mono text-accent">SISTEM_PERPUTAKAAN</h3>
+                    <button class="close-modal text-2xl text-gray-400 hover:text-accent transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                     alt="Sistem Informasi Perpustakaan" 
+                     class="w-full h-64 object-cover rounded-lg mb-4">
+                <p class="text-gray-300 mb-4">
+                    Website company profile yang elegan dan profesional, dikembangkan dengan CodeIgniter 3. Website ini menampilkan informasi perusahaan, 
+                    portfolio, dan layanan dengan desain yang responsive dan modern.
+                </p>
+                <div class="mb-4">
+                    <h4 class="text-lg font-mono text-accent mb-2">FITUR UTAMA:</h4>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Halaman about us yang informatif</li>
+                        <li>Gallery portfolio dengan kategori</li>
+                        <li>Daftar layanan yang ditawarkan</li>
+                        <li>Testimoni dari klien</li>
+                        <li>Form kontak yang terintegrasi</li>
+                        <li>Admin panel untuk mengelola konten</li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-lg font-mono text-accent mb-2">TEKNOLOGI:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">CodeIgniter 3</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">MySQL</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">Bootstrap</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">JavaScript</span>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://rprojectevent.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
+                        KUNJUNGI_WEBSITE
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Project 2 -->
+    <div id="modal-project2" class="modal">
+        <div class="modal-content w-11/12 md:w-3/4 lg:w-1/2">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold font-mono text-accent">E-COMMERCE_STORE</h3>
+                    <button class="close-modal text-2xl text-gray-400 hover:text-accent transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                     alt="E-Commerce Website" 
+                     class="w-full h-64 object-cover rounded-lg mb-4">
+                <p class="text-gray-300 mb-4">
+                    Platform e-commerce yang dikembangkan dengan Laravel, menawarkan pengalaman belanja online yang lengkap dan user-friendly. 
+                    Sistem ini dilengkapi dengan berbagai fitur modern untuk mendukung operasional bisnis online.
+                </p>
+                <div class="mb-4">
+                    <h4 class="text-lg font-mono text-accent mb-2">FITUR UTAMA:</h4>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Katalog produk dengan filter dan pencarian</li>
+                        <li>Sistem keranjang belanja dan wishlist</li>
+                        <li>Checkout dengan multiple payment gateway</li>
+                        <li>Manajemen stok dan inventory</li>
+                        <li>Dashboard admin untuk mengelola produk dan orders</li>
+                        <li>System review dan rating produk</li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-lg font-mono text-accent mb-2">TEKNOLOGI:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">Laravel</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">MySQL</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">JavaScript</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">Bootstrap</span>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://ecommerce-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
+                        KUNJUNGI_WEBSITE
+                    </a>
+                    <a href="https://github.com/username/ecommerce" target="_blank" class="flex-1 border border-accent text-accent hover:bg-accent hover:text-white py-3 text-center font-mono font-bold transition-colors">
+                        SOURCE_CODE
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Project 3 -->
+    <div id="modal-project3" class="modal">
+        <div class="modal-content w-11/12 md:w-3/4 lg:w-1/2">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold font-mono text-accent">COMPANY_PROFILE</h3>
+                    <button class="close-modal text-2xl text-gray-400 hover:text-accent transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                     alt="Company Profile Website" 
+                     class="w-full h-64 object-cover rounded-lg mb-4">
+                <p class="text-gray-300 mb-4">
+                    Website company profile yang elegan dan profesional, dikembangkan dengan CodeIgniter. 
+                    Website ini menampilkan informasi perusahaan, portfolio, layanan, dan testimoni dengan desain yang responsive dan modern.
+                </p>
+                <div class="mb-4">
+                    <h4 class="text-lg font-mono text-accent mb-2">FITUR UTAMA:</h4>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Halaman about us yang informatif</li>
+                        <li>Gallery portfolio dengan kategori</li>
+                        <li>Daftar layanan yang ditawarkan</li>
+                        <li>Testimoni dari klien</li>
+                        <li>Form kontak yang terintegrasi</li>
+                        <li>Admin panel untuk mengelola konten</li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-lg font-mono text-accent mb-2">TEKNOLOGI:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">CodeIgniter</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">MySQL</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">CSS3</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">JavaScript</span>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://company-profile-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
+                        KUNJUNGI_WEBSITE
+                    </a>
+                    <a href="https://github.com/username/company-profile" target="_blank" class="flex-1 border border-accent text-accent hover:bg-accent hover:text-white py-3 text-center font-mono font-bold transition-colors">
+                        SOURCE_CODE
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+            <span class="text-accent">//</span> CONNECT_WITH_ME
+        </h2>
+        <div class="w-16 h-px bg-accent mx-auto"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Kiri: Social Media -->
+        <div>
+            <h3 class="text-2xl font-bold mb-6 font-mono">FOLLOW_ME</h3>
+            <p class="text-gray-300 mb-8 leading-relaxed">
+            Stay connected through my social media platforms and explore my journey.
+            </p>
+
+            <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+                <i class="fab fa-github text-accent"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+                <i class="fab fa-linkedin text-accent"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+                <i class="fab fa-twitter text-accent"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+                <i class="fab fa-instagram text-accent"></i>
+            </a>
+            </div>
+        </div>
+
+        <!-- Kanan: Personal Quote -->
+        <div class="flex items-center">
+            <blockquote class="border-l-4 border-accent pl-6 italic text-gray-300 text-lg leading-relaxed">
+            “If debugging is the process of removing software bugs, then programming must be the process of putting them in.”
+            <br />
+            <span class="block mt-3 text-accent font-mono text-sm">— Edsger W. Dijkstra</span>
+            </blockquote>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-400 text-sm font-mono mb-6">
+                    © 2025 FIKRI RAIHAN PRATAMA. ALL RIGHTS RESERVED.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Typing Animation
+        const typingText = document.getElementById('typing-text');
+        const texts = [
+            'Full Stack Developer',
+            'Software Architect',
+            'Problem Solver',
+            'Code Craftsman'
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = 100;
+            if (isDeleting) typeSpeed /= 2;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        typeWriter();
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles-container');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const button = e.target.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            button.textContent = 'MESSAGE_SENT!';
+            button.classList.add('bg-green-600');
+            button.classList.remove('bg-accent');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('bg-green-600');
+                button.classList.add('bg-accent');
+                e.target.reset();
+            }, 3000);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('backdrop-blur-xl');
+            } else {
+                nav.classList.remove('backdrop-blur-xl');
+            }
+        });
+
+        // Project Modal Functionality
+        document.querySelectorAll('.project-image, .project-details').forEach(element => {
+            element.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project');
+                const modal = document.getElementById(`modal-${projectId}`);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close modal functionality
+        document.querySelectorAll('.close-modal, .modal').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (e.target === this || e.target.classList.contains('close-modal')) {
+                    this.closest('.modal').classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Add fade-in animation to sections
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.getElementById('home');
+            const parallaxElements = heroSection.querySelectorAll('.z-10 > *');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.1;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
