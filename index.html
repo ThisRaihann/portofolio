@@ -191,7 +191,7 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.7);
         }
         
-        /* Modal Styles */
+        /* Modal Styles - Fixed */
         .modal {
             display: none;
             position: fixed;
@@ -200,7 +200,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
+            z-index: 9999;
             justify-content: center;
             align-items: center;
             opacity: 0;
@@ -221,6 +221,8 @@
             overflow: auto;
             transform: scale(0.8);
             transition: transform 0.3s ease;
+            pointer-events: auto;
+            cursor: default;
         }
         
         .modal.active .modal-content {
@@ -235,6 +237,12 @@
         .project-image:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(255, 0, 64, 0.3);
+        }
+        
+        /* Close button styles */
+        .close-modal {
+            cursor: pointer;
+            z-index: 10001;
         }
     </style>
 </head>
@@ -302,7 +310,7 @@
             </div>
             
             <p class="text-lg mb-12 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Elite software engineer crafting high-performance digital solutions with precision and innovation
+                Enthusiastic junior developer focused on learning and delivering high-quality digital solution
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -310,7 +318,7 @@
                     DOWNLOAD_CV.pdf
                 </button>
                 <button class="border border-white hover:border-accent hover:text-accent px-8 py-3 font-mono font-semibold hover-lift transition-all duration-300">
-                    CONNECT_WITH_ME
+                    <a href="#contact">CONNECT_WITH_ME</a>
                 </button>
             </div>
         </div>
@@ -517,7 +525,7 @@
             </div>
             
             <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Project 1 - Sistem Informasi Perpustakaan -->
+                <!-- Project 1 - R Project Event Organizer -->
                 <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
                     <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
                         <img src="assets/rpro.png" 
@@ -537,7 +545,7 @@
                         <div class="flex flex-wrap gap-2 mb-6">
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CODEIGNITER</span>
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
-                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">BOOTSTRAP</span>
+                            <span class="px-2py-1 bg-accent/20 text-accent text-xs font-mono">BOOTSTRAP</span>
                         </div>
                         <div class="flex space-x-4">
                             <a href="https://rprojectevent.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
@@ -550,30 +558,30 @@
                     </div>
                 </div>
 
-                <!-- Project 2 - E-Commerce Website -->
+                <!-- Project 2 - RKOMMNIBUS -->
                 <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
                     <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                             alt="E-Commerce Website" 
+                        <img src="assets/rkomnibus.png" 
+                             alt="RKOMMNIBUS" 
                              class="w-full h-full object-cover project-image"
                              data-project="project2">
                         <div class="absolute inset-0 bg-accent/10 group-hover:bg-accent/20 transition-all duration-300"></div>
                         <div class="absolute top-4 right-4 bg-accent px-3 py-1 text-xs font-mono font-bold">
-                            LARAVEL
+                            CODEIGNITER
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 font-mono">E-COMMERCE_STORE</h3>
+                        <h3 class="text-xl font-bold mb-2 font-mono">RKOMMNIBUS</h3>
                         <p class="text-gray-400 text-sm mb-4">
-                            Platform e-commerce lengkap dengan sistem keranjang belanja, checkout, dan manajemen produk.
+                            Website pendaftaran Kompetisi Kompetensi Akademik (KKA) 2025 oleh Radar Kediri.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">LARAVEL</span>
+                            <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CODEIGNITER</span>
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">JAVASCRIPT</span>
                         </div>
                         <div class="flex space-x-4">
-                            <a href="https://ecommerce-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
+                            <a href="https://rkomnibus.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
                                 VIEW_LIVE
                             </a>
                             <button class="flex-1 border border-white/20 hover:border-accent py-2 text-sm font-mono font-bold hover:text-accent transition-all project-details" data-project="project2">
@@ -583,11 +591,11 @@
                     </div>
                 </div>
 
-                <!-- Project 3 - Company Profile -->
+                <!-- Project 3 - UMKM Kelurahan Wonorejo -->
                 <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
                     <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Company Profile Website" 
+                        <img src="assets/umkm.png" 
+                             alt="UMKM Kelurahan Wonorejo" 
                              class="w-full h-full object-cover project-image"
                              data-project="project3">
                         <div class="absolute inset-0 bg-accent/10 group-hover:bg-accent/20 transition-all duration-300"></div>
@@ -596,9 +604,9 @@
                         </div>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 font-mono">COMPANY_PROFILE</h3>
+                        <h3 class="text-xl font-bold mb-2 font-mono">UMKM_KELURAHAN_WONOREJO</h3>
                         <p class="text-gray-400 text-sm mb-4">
-                            Website company profile dengan admin panel untuk mengelola konten, portfolio, dan testimoni.
+                            Website untuk mempromosikan UMKM di Kelurahan Wonorejo dengan katalog produk.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-6">
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CODEIGNITER</span>
@@ -606,7 +614,7 @@
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CSS3</span>
                         </div>
                         <div class="flex space-x-4">
-                            <a href="https://company-profile-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
+                            <a href="https://umkmwonorejo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
                                 VIEW_LIVE
                             </a>
                             <button class="flex-1 border border-white/20 hover:border-accent py-2 text-sm font-mono font-bold hover:text-accent transition-all project-details" data-project="project3">
@@ -620,30 +628,29 @@
     </section>
 
     <!-- Project Modals -->
-    <!-- Modal Project 1 -->
+    <!-- Modal Project 1 - R Project Event Organizer -->
     <div id="modal-project1" class="modal">
         <div class="modal-content w-11/12 md:w-3/4 lg:w-1/2">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold font-mono text-accent">SISTEM_PERPUTAKAAN</h3>
+                    <h3 class="text-2xl font-bold font-mono text-accent">R_PROJECT_EVENT_ORGANIZER</h3>
                     <button class="close-modal text-2xl text-gray-400 hover:text-accent transition-colors">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                     alt="Sistem Informasi Perpustakaan" 
+                <img src="assets/rpro.png" 
+                     alt="Rprojectevent" 
                      class="w-full h-64 object-cover rounded-lg mb-4">
                 <p class="text-gray-300 mb-4">
-                    Website company profile yang elegan dan profesional, dikembangkan dengan CodeIgniter 3. Website ini menampilkan informasi perusahaan, 
-                    portfolio, dan layanan dengan desain yang responsive dan modern.
+                    Website Company Profile untuk R Project Event Organizer yang dikembangkan dengan CodeIgniter 3. 
+                    Website ini menampilkan informasi perusahaan, portfolio event, layanan, dan kontak dengan desain yang responsive dan profesional.
                 </p>
                 <div class="mb-4">
                     <h4 class="text-lg font-mono text-accent mb-2">FITUR UTAMA:</h4>
                     <ul class="list-disc list-inside text-gray-300 space-y-1">
                         <li>Halaman about us yang informatif</li>
-                        <li>Gallery portfolio dengan kategori</li>
-                        <li>Daftar layanan yang ditawarkan</li>
-                        <li>Testimoni dari klien</li>
+                        <li>Gallery portfolio event dengan kategori</li>
+                        <li>Daftar layanan event organizer</li>
                         <li>Form kontak yang terintegrasi</li>
                         <li>Admin panel untuk mengelola konten</li>
                     </ul>
@@ -666,81 +673,75 @@
         </div>
     </div>
 
-    <!-- Modal Project 2 -->
+    <!-- Modal Project 2 - RKOMMNIBUS -->
     <div id="modal-project2" class="modal">
         <div class="modal-content w-11/12 md:w-3/4 lg:w-1/2">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold font-mono text-accent">E-COMMERCE_STORE</h3>
+                    <h3 class="text-2xl font-bold font-mono text-accent">RKOMMNIBUS</h3>
                     <button class="close-modal text-2xl text-gray-400 hover:text-accent transition-colors">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                     alt="E-Commerce Website" 
+                <img src="assets/rkomnibus.png" 
+                     alt="RKOMMNIBUS" 
                      class="w-full h-64 object-cover rounded-lg mb-4">
                 <p class="text-gray-300 mb-4">
-                    Platform e-commerce yang dikembangkan dengan Laravel, menawarkan pengalaman belanja online yang lengkap dan user-friendly. 
-                    Sistem ini dilengkapi dengan berbagai fitur modern untuk mendukung operasional bisnis online.
+                    Platform Pendaftaran Kompetensi Kompetisi Akademik (KKA 2025) RKOMNIBUS yang dikembangkan dengan CodeIgniter 3. 
+                    Sistem ini dilengkapi dengan berbagai fitur modern untuk mendukung operasional pendaftaran.
                 </p>
                 <div class="mb-4">
                     <h4 class="text-lg font-mono text-accent mb-2">FITUR UTAMA:</h4>
                     <ul class="list-disc list-inside text-gray-300 space-y-1">
-                        <li>Katalog produk dengan filter dan pencarian</li>
-                        <li>Sistem keranjang belanja dan wishlist</li>
-                        <li>Checkout dengan multiple payment gateway</li>
-                        <li>Manajemen stok dan inventory</li>
-                        <li>Dashboard admin untuk mengelola produk dan orders</li>
-                        <li>System review dan rating produk</li>
+                        <li>Pendaftaran form</li>
+                        <li>Pendataan peserta</li>
+                        <li>Admin panel untuk mengelola data peserta</li>
                     </ul>
                 </div>
                 <div class="mb-6">
                     <h4 class="text-lg font-mono text-accent mb-2">TEKNOLOGI:</h4>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">Laravel</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">CodeIgniter 3</span>
                         <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">MySQL</span>
                         <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">JavaScript</span>
                         <span class="px-3 py-1 bg-accent/20 text-accent text-sm font-mono">Bootstrap</span>
                     </div>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="https://ecommerce-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
+                    <a href="https://rkomnibus.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
                         KUNJUNGI_WEBSITE
-                    </a>
-                    <a href="https://github.com/username/ecommerce" target="_blank" class="flex-1 border border-accent text-accent hover:bg-accent hover:text-white py-3 text-center font-mono font-bold transition-colors">
-                        SOURCE_CODE
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Project 3 -->
+    <!-- Modal Project 3 - UMKM Kelurahan Wonorejo -->
     <div id="modal-project3" class="modal">
         <div class="modal-content w-11/12 md:w-3/4 lg:w-1/2">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold font-mono text-accent">COMPANY_PROFILE</h3>
+                    <h3 class="text-2xl font-bold font-mono text-accent">UMKM_KELURAHAN_WONOREJO</h3>
                     <button class="close-modal text-2xl text-gray-400 hover:text-accent transition-colors">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                     alt="Company Profile Website" 
+                <img src="assets/umkm.png" 
+                     alt="UMKM Kelurahan Wonorejo" 
                      class="w-full h-64 object-cover rounded-lg mb-4">
                 <p class="text-gray-300 mb-4">
-                    Website company profile yang elegan dan profesional, dikembangkan dengan CodeIgniter. 
-                    Website ini menampilkan informasi perusahaan, portfolio, layanan, dan testimoni dengan desain yang responsive dan modern.
+                    Website UMKM Kelurahan Wonorejo yang dikembangkan dengan CodeIgniter. 
+                    Website ini menampilkan informasi UMKM, produk lokal, dan layanan dengan desain yang responsive dan modern.
                 </p>
                 <div class="mb-4">
                     <h4 class="text-lg font-mono text-accent mb-2">FITUR UTAMA:</h4>
                     <ul class="list-disc list-inside text-gray-300 space-y-1">
-                        <li>Halaman about us yang informatif</li>
-                        <li>Gallery portfolio dengan kategori</li>
-                        <li>Daftar layanan yang ditawarkan</li>
-                        <li>Testimoni dari klien</li>
-                        <li>Form kontak yang terintegrasi</li>
-                        <li>Admin panel untuk mengelola konten</li>
+                        <li>Katalog produk UMKM Wonorejo</li>
+                        <li>Profil setiap pelaku UMKM</li>
+                        <li>Sistem pencarian pelaku UMKM</li>
+                        <li>Kontak langsung dengan penjual</li>
+                        <li>Admin panel untuk mengelola data UMKM</li>
+                        <li>Gallery produk dengan kategori</li>
                     </ul>
                 </div>
                 <div class="mb-6">
@@ -753,11 +754,8 @@
                     </div>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="https://company-profile-demo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
+                    <a href="https://umkmwonorejo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-3 text-center font-mono font-bold transition-colors">
                         KUNJUNGI_WEBSITE
-                    </a>
-                    <a href="https://github.com/username/company-profile" target="_blank" class="flex-1 border border-accent text-accent hover:bg-accent hover:text-white py-3 text-center font-mono font-bold transition-colors">
-                        SOURCE_CODE
                     </a>
                 </div>
             </div>
@@ -783,16 +781,16 @@
             </p>
 
             <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+            <a href="https://github.com/ThisRaihann" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
                 <i class="fab fa-github text-accent"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+            <a href="https://www.linkedin.com/in/fikriraihanpratama/" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
                 <i class="fab fa-linkedin text-accent"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
-                <i class="fab fa-twitter text-accent"></i>
+            <a href="https://wa.me/6281808822582" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+                <i class="fab fa-whatsapp text-accent"></i>
             </a>
-            <a href="#" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
+            <a href="https://www.instagram.com/rhnprtm.8/" class="w-10 h-10 bg-accent/10 border border-accent/20 hover:bg-accent/20 flex items-center justify-center transition-all duration-300 rounded-xl">
                 <i class="fab fa-instagram text-accent"></i>
             </a>
             </div>
@@ -801,7 +799,7 @@
         <!-- Kanan: Personal Quote -->
         <div class="flex items-center">
             <blockquote class="border-l-4 border-accent pl-6 italic text-gray-300 text-lg leading-relaxed">
-            “If debugging is the process of removing software bugs, then programming must be the process of putting them in.”
+            "If debugging is the process of removing software bugs, then programming must be the process of putting them in."
             <br />
             <span class="block mt-3 text-accent font-mono text-sm">— Edsger W. Dijkstra</span>
             </blockquote>
@@ -810,7 +808,7 @@
     </div>
     </section>
 
-    <!-- Footer 
+    <!-- Footer -->
     <footer class="py-12 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -819,7 +817,7 @@
                 </p>
             </div>
         </div>
-    </footer>-->
+    </footer>
 
     <script>
         // Mobile Menu Toggle
@@ -849,10 +847,10 @@
         // Typing Animation
         const typingText = document.getElementById('typing-text');
         const texts = [
-            'Full Stack Developer',
-            'Software Architect',
-            'Problem Solver',
-            'Code Craftsman'
+            'Junior Full Stack Developer',
+            'Aspiring Software Architect',
+            'Problem Solver in Progress  ',
+            'Code Explorer'
         ];
         let textIndex = 0;
         let charIndex = 0;
@@ -900,25 +898,6 @@
             }
         }
 
-        // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show success message
-            const button = e.target.querySelector('button[type="submit"]');
-            const originalText = button.textContent;
-            button.textContent = 'MESSAGE_SENT!';
-            button.classList.add('bg-green-600');
-            button.classList.remove('bg-accent');
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.classList.remove('bg-green-600');
-                button.classList.add('bg-accent');
-                e.target.reset();
-            }, 3000);
-        });
-
         // Navbar background on scroll
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
@@ -929,36 +908,51 @@
             }
         });
 
-        // Project Modal Functionality
-        document.querySelectorAll('.project-image, .project-details').forEach(element => {
-            element.addEventListener('click', function() {
-                const projectId = this.getAttribute('data-project');
-                const modal = document.getElementById(`modal-${projectId}`);
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
+        // Project Modal Functionality - Fixed Version
+        document.addEventListener('DOMContentLoaded', function() {
+            // Open modal functionality
+            document.querySelectorAll('.project-image, .project-details').forEach(element => {
+                element.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-project');
+                    const modal = document.getElementById(`modal-${projectId}`);
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
             });
-        });
 
-        // Close modal functionality
-        document.querySelectorAll('.close-modal, .modal').forEach(element => {
-            element.addEventListener('click', function(e) {
-                if (e.target === this || e.target.classList.contains('close-modal')) {
-                    this.closest('.modal').classList.remove('active');
+            // Close modal functionality
+            document.querySelectorAll('.close-modal').forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // Close modal when clicking outside content
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
                     document.body.style.overflow = 'auto';
                 }
             });
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    modal.classList.remove('active');
-                });
-                document.body.style.overflow = 'auto';
-            }
         });
 
         // Initialize everything
