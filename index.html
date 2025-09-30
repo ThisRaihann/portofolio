@@ -48,6 +48,9 @@
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' }
                         }
+                    },
+                    screens: {
+                        'xs': '475px',
                     }
                 }
             }
@@ -244,6 +247,104 @@
             cursor: pointer;
             z-index: 10001;
         }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .hero-name {
+                font-size: 3.5rem !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-name {
+                font-size: 2.5rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem !important;
+            }
+            
+            .section-title {
+                font-size: 2.5rem !important;
+            }
+            
+            .profile-image {
+                width: 20rem !important;
+                height: 20rem !important;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .modal-content {
+                width: 95% !important;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .hero-name {
+                font-size: 2rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.125rem !important;
+            }
+            
+            .section-title {
+                font-size: 2rem !important;
+            }
+            
+            .profile-image {
+                width: 16rem !important;
+                height: 16rem !important;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .project-buttons {
+                flex-direction: column !important;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .nav-links {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 475px) {
+            .hero-name {
+                font-size: 3rem !important;
+            }
+            
+            .hero-buttons {
+                flex-direction: column !important;
+                width: 100% !important;
+            }
+            
+            .hero-buttons button {
+                width: 100% !important;
+            }
+            
+            .profile-image {
+                width: 14rem !important;
+                height: 14rem !important;
+            }
+            
+            .section-padding {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-darker text-white matrix-bg code-bg">
@@ -255,7 +356,7 @@
                 <div class="text-xl font-mono font-bold text-accent">
                     &lt;/DEV&gt;
                 </div>
-                <div class="hidden md:flex space-x-8 font-mono text-sm">
+                <div class="hidden md:flex space-x-8 font-mono text-sm nav-links">
                     <a href="#home" class="hover:text-accent transition-colors duration-300">[HOME]</a>
                     <a href="#about" class="hover:text-accent transition-colors duration-300">[ABOUT]</a>
                     <a href="#skills" class="hover:text-accent transition-colors duration-300">[SKILLS]</a>
@@ -282,7 +383,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24">
         <div class="absolute inset-0 z-0">
             <div class="matrix-line"></div>
             <div class="floating-particles" id="particles-container"></div>
@@ -299,13 +400,13 @@
                 </div>
             </div>
             
-            <h1 class="text-6xl md:text-8xl font-bold mb-4 text-shadow">
+            <h1 class="hero-name text-6xl md:text-8xl font-bold mb-4 text-shadow">
                 <span class="text-white">FIKRI</span>
                 <span class="text-white">RAIHAN</span>
                 <span class="text-white">PRATAMA</span>
             </h1>
             
-            <div class="text-xl md:text-2xl font-mono mb-8 text-muted">
+            <div class="hero-subtitle text-xl md:text-2xl font-mono mb-8 text-muted">
                 <span class="terminal-cursor" id="typing-text">Full Stack Developer</span>
             </div>
             
@@ -313,7 +414,7 @@
                 Enthusiastic junior developer focused on learning and delivering high-quality digital solution
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="hero-buttons flex flex-col sm:flex-row gap-4 justify-center">
                 <button class="bg-accent hover:bg-red-600 text-white px-8 py-3 font-mono font-semibold hover-lift transition-all duration-300">
                     DOWNLOAD_CV.pdf
                 </button>
@@ -331,10 +432,10 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 relative">
+    <section id="about" class="section-padding py-20 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                <h2 class="section-title text-4xl md:text-5xl font-bold mb-4">
                     <span class="text-accent">//</span> ABOUT_ME
                 </h2>
                 <div class="w-16 h-px bg-accent mx-auto"></div>
@@ -386,16 +487,16 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 relative">
+    <section id="skills" class="section-padding py-20 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                <h2 class="section-title text-4xl md:text-5xl font-bold mb-4">
                     <span class="text-accent">//</span> TECHNICAL_SKILLS
                 </h2>
                 <div class="w-16 h-px bg-accent mx-auto"></div>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="tech-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Frontend -->
                 <div class="neo-card p-8 tech-category">
                     <div class="flex items-center mb-6">
@@ -505,7 +606,8 @@
                             <p class="text-xs mt-2 font-mono">GitHub</p>
                         </div>
                         <div class="text-center">
-                            <i class="fab fa-figma text-4xl text-purple-400 tech-icon"></i>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                                alt="Figma Logo" class="h-8 mx-auto tech-icon">
                             <p class="text-xs mt-2 font-mono">Figma</p>
                         </div>
                     </div>
@@ -515,16 +617,16 @@
     </section>
 
     <!-- Work Section -->
-    <section id="work" class="py-20 relative">
+    <section id="work" class="section-padding py-20 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                <h2 class="section-title text-4xl md:text-5xl font-bold mb-4">
                     <span class="text-accent">//</span> PORTFOLIO_PROJECTS
                 </h2>
                 <div class="w-16 h-px bg-accent mx-auto"></div>
             </div>
             
-            <div class="grid lg:grid-cols-3 gap-8">
+            <div class="project-grid grid lg:grid-cols-3 gap-8">
                 <!-- Project 1 - R Project Event Organizer -->
                 <div class="neo-card rounded-2xl overflow-hidden hover-lift transition-all duration-500 group">
                     <div class="h-64 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
@@ -547,7 +649,7 @@
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
                             <span class="px-2py-1 bg-accent/20 text-accent text-xs font-mono">BOOTSTRAP</span>
                         </div>
-                        <div class="flex space-x-4">
+                        <div class="project-buttons flex space-x-4">
                             <a href="https://rprojectevent.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
                                 VIEW_LIVE
                             </a>
@@ -580,7 +682,7 @@
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">JAVASCRIPT</span>
                         </div>
-                        <div class="flex space-x-4">
+                        <div class="project-buttons flex space-x-4">
                             <a href="https://rkomnibus.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
                                 VIEW_LIVE
                             </a>
@@ -613,7 +715,7 @@
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">MYSQL</span>
                             <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-mono">CSS3</span>
                         </div>
-                        <div class="flex space-x-4">
+                        <div class="project-buttons flex space-x-4">
                             <a href="https://umkmwonorejo.com" target="_blank" class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center block">
                                 VIEW_LIVE
                             </a>
@@ -763,16 +865,16 @@
     </div>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 relative">
+    <section id="contact" class="section-padding py-20 relative">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        <h2 class="section-title text-4xl md:text-5xl font-bold mb-4">
             <span class="text-accent">//</span> CONNECT_WITH_ME
         </h2>
         <div class="w-16 h-px bg-accent mx-auto"></div>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-12">
+        <div class="contact-grid grid lg:grid-cols-2 gap-12">
         <!-- Kiri: Social Media -->
         <div>
             <h3 class="text-2xl font-bold mb-6 font-mono">FOLLOW_ME</h3>
