@@ -1807,12 +1807,10 @@
             const adminControls = document.getElementById('admin-controls');
             const adminPasswordInput = document.getElementById('admin-password');
             
-            // Password admin - GANTI DENGAN PASSWORD YANG ANDA INGINKAN
-            const ADMIN_PASSWORD = "123"; // Password default, ganti dengan password yang kuat
+            const ADMIN_PASSWORD = "Terserah12"; 
             
             let isAdminLoggedIn = false;
             
-            // Check if admin is already logged in (from sessionStorage)
             function checkAdminStatus() {
                 const adminStatus = sessionStorage.getItem('portfolioAdmin');
                 if (adminStatus === 'true') {
@@ -1821,7 +1819,6 @@
                 }
             }
             
-            // Enhanced Admin Login with SweetAlert
             if (adminLoginBtn) {
                 adminLoginBtn.addEventListener('click', function() {
                     const password = adminPasswordInput.value.trim();
