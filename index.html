@@ -19,9 +19,9 @@
             query, 
             orderBy, 
             deleteDoc, 
-            doc 
+            doc,
+            updateDoc
         } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-
 
         // 🔥 Firebase Configuration
         const firebaseConfig = {
@@ -49,7 +49,8 @@
             query,
             orderBy,
             deleteDoc,
-            doc
+            doc,
+            updateDoc
         };
     </script>
     <script>
@@ -160,7 +161,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Semua CSS yang sama seperti sebelumnya */
         * { font-family: 'Inter', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         
@@ -795,6 +795,25 @@
                 width: 200px !important;
             }
         }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 0, 64, 0.5);
+            border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 0, 64, 0.7);
+        }
     </style>
 </head>
 <body class="bg-darker text-white matrix-bg code-bg">
@@ -1301,8 +1320,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -1509,7 +1526,7 @@
                             LOGIN ADMIN
                         </button>
                     </div>
-                    <p class="text-xs text-gray-400 mt-2">Hanya pemilik portfolio yang dapat menghapus komentar</p>
+                    <p class="text-xs text-gray-400 mt-2">Hanya pemilik portfolio yang dapat menghapus dan membalas komentar</p>
                 </div>
                 <div id="admin-controls" class="hidden">
                     <div class="flex flex-wrap gap-4 items-center">
@@ -1525,7 +1542,7 @@
             </div>
             
             <!-- Comment Form -->
-            <div class="neo-card p-8 mb-12 comment-form">
+            <div class="neo-card p-8 mb-8 comment-form">
                 <h3 class="text-2xl font-bold mb-6 font-mono text-accent">TAMBAH_KOMENTAR</h3>
                 <form id="comment-form">
                     <div class="comment-inputs flex flex-col sm:flex-row gap-4 mb-4">
@@ -1540,11 +1557,26 @@
                 </form>
             </div>
             
-            <!-- Comments List -->
-            <div id="comments-list" class="space-y-6">
-                <div class="text-center py-8 text-gray-400">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
-                    <p class="font-mono">Memuat komentar...</p>
+            <!-- Comments Container -->
+            <div class="neo-card p-6">
+                <h3 class="text-xl font-bold mb-6 font-mono text-accent border-b border-white/10 pb-4">
+                    <i class="fas fa-comments mr-3"></i>DAFTAR_KOMENTAR
+                </h3>
+                
+                <!-- Comments List dengan Scroll Area -->
+                <div class="max-h-96 overflow-y-auto space-y-6 pr-2 custom-scrollbar" id="comments-list">
+                    <!-- Loading State -->
+                    <div class="text-center py-8 text-gray-400">
+                        <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                        <p class="font-mono">Memuat komentar...</p>
+                    </div>
+                </div>
+                
+                <!-- Comments Stats -->
+                <div class="mt-6 pt-4 border-t border-white/10 text-center">
+                    <p class="text-sm text-gray-400 font-mono" id="comments-count">
+                        <span id="total-comments">0</span> KOMENTAR
+                    </p>
                 </div>
             </div>
         </div>
@@ -1574,7 +1606,7 @@
             
             // Create enhanced matrix rain effect
             function createMatrixRain() {
-                const chars = '';
+                const chars = '01';
                 const columns = Math.floor(window.innerWidth / 20);
                 
                 for (let i = 0; i < columns; i++) {
@@ -1806,10 +1838,12 @@
             const adminLoginSection = document.getElementById('admin-login-section');
             const adminControls = document.getElementById('admin-controls');
             const adminPasswordInput = document.getElementById('admin-password');
+            const totalCommentsSpan = document.getElementById('total-comments');
             
             const ADMIN_PASSWORD = "Terserah12"; 
             
             let isAdminLoggedIn = false;
+            let currentReplyingTo = null;
             
             function checkAdminStatus() {
                 const adminStatus = sessionStorage.getItem('portfolioAdmin');
@@ -1992,6 +2026,7 @@
                 
                 onSnapshot(q, (snapshot) => {
                     commentsList.innerHTML = '';
+                    let commentCount = 0;
                     
                     if (snapshot.empty) {
                         commentsList.innerHTML = `
@@ -2000,36 +2035,22 @@
                                 <p class="font-mono">Belum ada komentar. Jadilah yang pertama!</p>
                             </div>
                         `;
+                        totalCommentsSpan.textContent = '0';
                         return;
                     }
                     
                     snapshot.forEach((doc) => {
                         const comment = doc.data();
-                        const commentElement = document.createElement('div');
-                        commentElement.className = 'neo-card p-6 comment-card';
-                        commentElement.innerHTML = `
-                            <div class="flex justify-between items-start mb-4">
-                                <h4 class="font-bold text-accent font-mono">${escapeHtml(comment.name)}</h4>
-                                <span class="text-xs text-gray-400 font-mono">${formatDate(comment.createdAt?.toDate())}</span>
-                            </div>
-                            <p class="text-gray-300 leading-relaxed">${escapeHtml(comment.text)}</p>
-                            ${isAdminLoggedIn ? `
-                            <div class="delete-comment" data-id="${doc.id}" title="Hapus Komentar">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                            ` : ''}
-                        `;
+                        commentCount++;
+                        const commentElement = createCommentElement(doc.id, comment);
                         commentsList.appendChild(commentElement);
                     });
                     
-                    // Add event listeners to delete buttons if admin is logged in
+                    totalCommentsSpan.textContent = commentCount;
+                    
+                    // Add event listeners for admin actions
                     if (isAdminLoggedIn) {
-                        document.querySelectorAll('.delete-comment').forEach(button => {
-                            button.addEventListener('click', function() {
-                                const commentId = this.getAttribute('data-id');
-                                deleteComment(commentId);
-                            });
-                        });
+                        addAdminEventListeners();
                     }
                 }, (error) => {
                     console.error('Error loading comments:', error);
@@ -2040,6 +2061,166 @@
                         </div>
                     `;
                 });
+            }
+            
+            // Create comment element with reply functionality
+            function createCommentElement(commentId, comment) {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'neo-card p-6 comment-card';
+                
+                const hasReply = comment.reply && comment.reply.text;
+                
+                commentElement.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-bold text-accent font-mono">${escapeHtml(comment.name)}</h4>
+                            <span class="text-xs text-gray-400 font-mono">${formatDate(comment.createdAt?.toDate())}</span>
+                        </div>
+                        ${isAdminLoggedIn ? `
+                        <div class="flex space-x-2">
+                            <button class="reply-comment w-8 h-8 bg-accent/20 border border-accent/30 text-accent rounded-full flex items-center justify-center transition-all hover:bg-accent/30" data-id="${commentId}" title="Balas Komentar">
+                                <i class="fas fa-reply text-xs"></i>
+                            </button>
+                            <button class="delete-comment w-8 h-8 bg-red-500/20 border border-red-500/30 text-red-400 rounded-full flex items-center justify-center transition-all hover:bg-red-500/30" data-id="${commentId}" title="Hapus Komentar">
+                                <i class="fas fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <p class="text-gray-300 leading-relaxed mb-4">${escapeHtml(comment.text)}</p>
+                    
+                    ${hasReply ? `
+                    <div class="bg-accent/10 border-l-4 border-accent p-4 rounded-r-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-crown text-accent mr-2"></i>
+                            <span class="font-bold text-accent font-mono">ADMIN</span>
+                            <span class="text-xs text-gray-400 ml-3">${formatDate(comment.reply.createdAt?.toDate())}</span>
+                        </div>
+                        <p class="text-gray-200">${escapeHtml(comment.reply.text)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${isAdminLoggedIn && currentReplyingTo === commentId ? `
+                    <div class="mt-4 p-4 bg-darker border border-accent/30 rounded-lg">
+                        <h5 class="font-mono text-accent mb-2">BALAS KOMENTAR:</h5>
+                        <textarea class="w-full bg-black border border-white/20 px-3 py-2 font-mono text-sm focus:border-accent focus:outline-none transition-colors" rows="3" placeholder="Tulis balasan Anda..." id="reply-text-${commentId}"></textarea>
+                        <div class="flex space-x-2 mt-2">
+                            <button class="send-reply bg-accent hover:bg-red-600 text-white px-4 py-2 font-mono text-sm transition-colors" data-id="${commentId}">
+                                KIRIM BALASAN
+                            </button>
+                            <button class="cancel-reply border border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 font-mono text-sm transition-colors" data-id="${commentId}">
+                                BATAL
+                            </button>
+                        </div>
+                    </div>
+                    ` : ''}
+                `;
+                
+                return commentElement;
+            }
+            
+            // Add event listeners for admin actions
+            function addAdminEventListeners() {
+                // Delete comment buttons
+                document.querySelectorAll('.delete-comment').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const commentId = this.getAttribute('data-id');
+                        deleteComment(commentId);
+                    });
+                });
+                
+                // Reply comment buttons
+                document.querySelectorAll('.reply-comment').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const commentId = this.getAttribute('data-id');
+                        startReply(commentId);
+                    });
+                });
+                
+                // Send reply buttons
+                document.querySelectorAll('.send-reply').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const commentId = this.getAttribute('data-id');
+                        sendReply(commentId);
+                    });
+                });
+                
+                // Cancel reply buttons
+                document.querySelectorAll('.cancel-reply').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const commentId = this.getAttribute('data-id');
+                        cancelReply(commentId);
+                    });
+                });
+            }
+            
+            // Start replying to a comment
+            function startReply(commentId) {
+                currentReplyingTo = commentId;
+                loadComments(); // Reload to show reply form
+            }
+            
+            // Cancel reply
+            function cancelReply(commentId) {
+                currentReplyingTo = null;
+                loadComments();
+            }
+            
+            // Send reply to a comment
+            async function sendReply(commentId) {
+                const replyText = document.getElementById(`reply-text-${commentId}`).value.trim();
+                
+                if (!replyText) {
+                    Swal.fire({
+                        title: 'Balasan Kosong!',
+                        text: 'Harap tulis balasan terlebih dahulu.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK',
+                        background: '#0a0a0a',
+                        color: '#ffffff',
+                        confirmButtonColor: '#ff0040',
+                        iconColor: '#ff0040'
+                    });
+                    return;
+                }
+                
+                try {
+                    const db = window.firebaseDB;
+                    const { doc, updateDoc, serverTimestamp } = window.firebaseFunctions;
+                    
+                    await updateDoc(doc(db, "comments", commentId), {
+                        reply: {
+                            text: replyText,
+                            createdAt: serverTimestamp()
+                        }
+                    });
+                    
+                    currentReplyingTo = null;
+                    
+                    // SweetAlert success notification
+                    Swal.fire({
+                        title: 'Balasan Terkirim!',
+                        text: 'Balasan Anda telah dikirim.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        background: '#0a0a0a',
+                        color: '#ffffff',
+                        confirmButtonColor: '#ff0040',
+                        iconColor: '#ff0040'
+                    });
+                } catch (error) {
+                    console.error('Error sending reply:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Gagal mengirim balasan.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        background: '#0a0a0a',
+                        color: '#ffffff',
+                        confirmButtonColor: '#ff0040',
+                        iconColor: '#ff0040'
+                    });
+                }
             }
             
             // Enhanced Delete Single Comment with SweetAlert
@@ -2147,7 +2328,8 @@
                         await addDoc(collection(db, "comments"), {
                             name: name,
                             text: text,
-                            createdAt: serverTimestamp()
+                            createdAt: serverTimestamp(),
+                            reply: null
                         });
                         
                         // Clear form
