@@ -7,6 +7,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, deleteDoc, doc } 
+            from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // 🔥 Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDToTm2wRWtRxLwzywEIMcej1hTk0f3gc4",
+            authDomain: "portfoliohanzzz-comments.firebaseapp.com",
+            projectId: "portfoliohanzzz-comments",
+            storageBucket: "portfoliohanzzz-comments.firebasestorage.app",
+            messagingSenderId: "651124143099",
+            appId: "1:651124143099:web:4b9da55f8750a28ca0d15e",
+            measurementId: "G-QZTC8TZY64"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Global variables untuk Firebase functions
+        window.firebaseApp = app;
+        window.firebaseDB = db;
+        window.firebaseFunctions = {
+            collection,
+            addDoc,
+            onSnapshot,
+            serverTimestamp,
+            query,
+            orderBy,
+            deleteDoc,
+            doc
+        };
+    </script>
     <script>
         tailwind.config = {
             theme: {
@@ -115,6 +150,7 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Semua CSS yang sama seperti sebelumnya */
         * { font-family: 'Inter', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         
@@ -577,7 +613,7 @@
         }
         
         .certificate-image {
-            height: 200px;
+            height: 250px;
             background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
             display: flex;
             align-items: center;
@@ -1184,63 +1220,79 @@
             
             <!-- Certificates Content -->
             <div class="portfolio-content" id="certificates-content">
-                <div class="grid lg:grid-cols-3 gap-8">
+                <div class="grid lg:grid-cols-3 gap-4">
                     <!-- Certificate 1 -->
-                    <div class="certificate-card rounded-2xl overflow-hidden">
-                        <div class="certificate-image">
-                            <i class="fas fa-certificate text-6xl text-accent"></i>
-                            <div class="certificate-badge">2024</div>
+                    <div class="certificate-card rounded-3xl overflow-hidden">
+                        <div class="certificate-image relative">
+                            <img src="assets/sertif/fepemula.png" 
+                                alt="Sertifikat Dicoding Web Development Bootcamp" 
+                                class="w-full h-64 object-cover">
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 font-mono">WEB_DEVELOPMENT_BOOTCAMP</h3>
+                            <h3 class="text-xl font-bold mb-2 font-mono">FRONT-ENT_WEB_PEMULA</h3>
                             <p class="text-gray-400 text-sm mb-4">
-                                Sertifikat penyelesaian bootcamp pengembangan web dengan fokus pada teknologi modern.
+                                Sertifikat mengembangkan website yang memiliki fungsionalitas lebih daripada hanya media
+                                informasi saja, sesuai dengan standar industri. Di akhir kelas, membuat aplikasi front-end web yang interaktif serta memiliki fitur penyimpanan
+                                menggunakan web storage.
                             </p>
                             <div class="flex space-x-4">
-                                <button class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center">
+                                <a href="https://www.dicoding.com/certificates/N9ZO94GQYXG5" 
+                                    target="_blank" 
+                                    class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center">
                                     VIEW_CERT
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Certificate 2 -->
-                    <div class="certificate-card rounded-2xl overflow-hidden">
-                        <div class="certificate-image">
-                            <i class="fas fa-code text-6xl text-accent"></i>
-                            <div class="certificate-badge">2024</div>
+                    <div class="certificate-card rounded-3xl overflow-hidden">
+                        <div class="certificate-image relative">
+                            <img src="assets/sertif/dasarweb.png" 
+                                alt="Sertifikat Dicoding Web Development Bootcamp" 
+                                class="w-full h-64 object-cover">
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 font-mono">FRONTEND_MASTERY</h3>
+                            <h3 class="text-xl font-bold mb-2 font-mono">DASAR_PEMROGRAMAN_WEB</h3>
                             <p class="text-gray-400 text-sm mb-4">
-                                Sertifikat keahlian dalam pengembangan frontend dengan framework modern.
+                                Sertifikat dasar HTML dan CSS sebagai tiga fondasi pembuatan website. Fondasi tersebut diperlukan untuk
+                                mengembangkan kemampuan pengembangan website ke tahap yang lebih lanjut.
                             </p>
                             <div class="flex space-x-4">
-                                <button class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center">
+                                <a href="https://www.dicoding.com/certificates/81P2NKNR8XOY" 
+                                    target="_blank" 
+                                    class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center">
                                     VIEW_CERT
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Certificate 3 -->
-                    <div class="certificate-card rounded-2xl overflow-hidden">
-                        <div class="certificate-image">
-                            <i class="fas fa-database text-6xl text-accent"></i>
-                            <div class="certificate-badge">2023</div>
+                    <div class="certificate-card rounded-3xl overflow-hidden">
+                        <div class="certificate-image relative">
+                            <img src="assets/sertif/dasarsql.png" 
+                                alt="Sertifikat Dicoding Web Development Bootcamp" 
+                                class="w-full h-64 object-cover">
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 font-mono">DATABASE_DESIGN</h3>
+                            <h3 class="text-xl font-bold mb-2 font-mono">DASAR_SQL</h3>
                             <p class="text-gray-400 text-sm mb-4">
-                                Sertifikat desain dan implementasi database untuk aplikasi web skala menengah.
+                                Sertifikat setelah mempelajari bahasa Structured QueryLanguage (SQL).                
+                                Di akhir kelas, wajib menguasai berbagai query dasar yang sering digunakan dalam mengelola data menggunakan bahasa structured
+                                query language(SQL)
                             </p>
                             <div class="flex space-x-4">
-                                <button class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center">
+                                <a href="https://www.dicoding.com/certificates/1OP8218K1PQK" 
+                                    target="_blank" 
+                                    class="flex-1 bg-accent hover:bg-red-600 py-2 text-sm font-mono font-bold transition-colors text-center">
                                     VIEW_CERT
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -1480,6 +1532,10 @@
             
             <!-- Comments List -->
             <div id="comments-list" class="space-y-6">
+                <div class="text-center py-8 text-gray-400">
+                    <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                    <p class="font-mono">Memuat komentar...</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1730,7 +1786,7 @@
             });
         });
 
-        // Enhanced Comments System with SweetAlert
+        // Enhanced Comments System with Firebase
         document.addEventListener('DOMContentLoaded', function() {
             const commentForm = document.getElementById('comment-form');
             const commentsList = document.getElementById('comments-list');
@@ -1852,23 +1908,52 @@
                         iconColor: '#ff0040'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            localStorage.removeItem('portfolioComments');
-                            loadComments();
-                            
-                            // SweetAlert success notification
-                            Swal.fire({
-                                title: 'Berhasil!',
-                                text: 'Semua komentar telah dihapus.',
-                                icon: 'success',
-                                confirmButtonText: 'OK',
-                                background: '#0a0a0a',
-                                color: '#ffffff',
-                                confirmButtonColor: '#ff0040',
-                                iconColor: '#ff0040'
-                            });
+                            // Delete all comments from Firebase
+                            deleteAllComments();
                         }
                     });
                 });
+            }
+            
+            // Delete all comments from Firebase
+            async function deleteAllComments() {
+                try {
+                    const db = window.firebaseDB;
+                    const { collection, getDocs, deleteDoc, doc } = window.firebaseFunctions;
+                    
+                    const querySnapshot = await getDocs(collection(db, "comments"));
+                    const deletePromises = [];
+                    
+                    querySnapshot.forEach((docSnapshot) => {
+                        deletePromises.push(deleteDoc(doc(db, "comments", docSnapshot.id)));
+                    });
+                    
+                    await Promise.all(deletePromises);
+                    
+                    // SweetAlert success notification
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Semua komentar telah dihapus.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        background: '#0a0a0a',
+                        color: '#ffffff',
+                        confirmButtonColor: '#ff0040',
+                        iconColor: '#ff0040'
+                    });
+                } catch (error) {
+                    console.error('Error deleting comments:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Gagal menghapus komentar.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        background: '#0a0a0a',
+                        color: '#ffffff',
+                        confirmButtonColor: '#ff0040',
+                        iconColor: '#ff0040'
+                    });
+                }
             }
             
             // Show admin controls
@@ -1889,57 +1974,69 @@
                 }
             }
             
-            // Load comments from localStorage
+            // Load comments from Firebase
             function loadComments() {
                 if (!commentsList) return;
                 
-                const comments = JSON.parse(localStorage.getItem('portfolioComments')) || [];
-                commentsList.innerHTML = '';
+                const db = window.firebaseDB;
+                const { collection, onSnapshot, query, orderBy } = window.firebaseFunctions;
                 
-                if (comments.length === 0) {
-                    commentsList.innerHTML = `
-                        <div class="text-center py-8 text-gray-400">
-                            <i class="fas fa-comment-slash text-4xl mb-4"></i>
-                            <p class="font-mono">Belum ada komentar. Jadilah yang pertama!</p>
-                        </div>
-                    `;
-                    return;
-                }
+                const q = query(collection(db, "comments"), orderBy("createdAt", "desc"));
                 
-                // Sort comments by date (newest first)
-                comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                comments.forEach((comment, index) => {
-                    const commentElement = document.createElement('div');
-                    commentElement.className = 'neo-card p-6 comment-card';
-                    commentElement.innerHTML = `
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="font-bold text-accent font-mono">${escapeHtml(comment.name)}</h4>
-                            <span class="text-xs text-gray-400 font-mono">${formatDate(comment.date)}</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">${escapeHtml(comment.text)}</p>
-                        ${isAdminLoggedIn ? `
-                        <div class="delete-comment" data-index="${index}" title="Hapus Komentar">
-                            <i class="fas fa-trash"></i>
-                        </div>
-                        ` : ''}
-                    `;
-                    commentsList.appendChild(commentElement);
-                });
-                
-                // Add event listeners to delete buttons if admin is logged in
-                if (isAdminLoggedIn) {
-                    document.querySelectorAll('.delete-comment').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const index = parseInt(this.getAttribute('data-index'));
-                            deleteComment(index);
-                        });
+                onSnapshot(q, (snapshot) => {
+                    commentsList.innerHTML = '';
+                    
+                    if (snapshot.empty) {
+                        commentsList.innerHTML = `
+                            <div class="text-center py-8 text-gray-400">
+                                <i class="fas fa-comment-slash text-4xl mb-4"></i>
+                                <p class="font-mono">Belum ada komentar. Jadilah yang pertama!</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    snapshot.forEach((doc) => {
+                        const comment = doc.data();
+                        const commentElement = document.createElement('div');
+                        commentElement.className = 'neo-card p-6 comment-card';
+                        commentElement.innerHTML = `
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="font-bold text-accent font-mono">${escapeHtml(comment.name)}</h4>
+                                <span class="text-xs text-gray-400 font-mono">${formatDate(comment.createdAt?.toDate())}</span>
+                            </div>
+                            <p class="text-gray-300 leading-relaxed">${escapeHtml(comment.text)}</p>
+                            ${isAdminLoggedIn ? `
+                            <div class="delete-comment" data-id="${doc.id}" title="Hapus Komentar">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                            ` : ''}
+                        `;
+                        commentsList.appendChild(commentElement);
                     });
-                }
+                    
+                    // Add event listeners to delete buttons if admin is logged in
+                    if (isAdminLoggedIn) {
+                        document.querySelectorAll('.delete-comment').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const commentId = this.getAttribute('data-id');
+                                deleteComment(commentId);
+                            });
+                        });
+                    }
+                }, (error) => {
+                    console.error('Error loading comments:', error);
+                    commentsList.innerHTML = `
+                        <div class="text-center py-8 text-red-400">
+                            <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                            <p class="font-mono">Gagal memuat komentar. Silakan refresh halaman.</p>
+                        </div>
+                    `;
+                });
             }
             
             // Enhanced Delete Single Comment with SweetAlert
-            function deleteComment(index) {
+            async function deleteComment(commentId) {
                 // SweetAlert confirmation dialog
                 Swal.fire({
                     title: 'Hapus Komentar?',
@@ -1953,31 +2050,46 @@
                     confirmButtonColor: '#ff0040',
                     cancelButtonColor: '#666666',
                     iconColor: '#ff0040'
-                }).then((result) => {
+                }).then(async (result) => {
                     if (result.isConfirmed) {
-                        const comments = JSON.parse(localStorage.getItem('portfolioComments')) || [];
-                        const deletedComment = comments.splice(index, 1)[0];
-                        localStorage.setItem('portfolioComments', JSON.stringify(comments));
-                        loadComments();
-                        
-                        // SweetAlert success notification
-                        Swal.fire({
-                            title: 'Berhasil!',
-                            text: `Komentar dari "${deletedComment.name}" telah dihapus.`,
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                            background: '#0a0a0a',
-                            color: '#ffffff',
-                            confirmButtonColor: '#ff0040',
-                            iconColor: '#ff0040'
-                        });
+                        try {
+                            const db = window.firebaseDB;
+                            const { deleteDoc, doc } = window.firebaseFunctions;
+                            
+                            await deleteDoc(doc(db, "comments", commentId));
+                            
+                            // SweetAlert success notification
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Komentar telah dihapus.',
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                                background: '#0a0a0a',
+                                color: '#ffffff',
+                                confirmButtonColor: '#ff0040',
+                                iconColor: '#ff0040'
+                            });
+                        } catch (error) {
+                            console.error('Error deleting comment:', error);
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Gagal menghapus komentar.',
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                background: '#0a0a0a',
+                                color: '#ffffff',
+                                confirmButtonColor: '#ff0040',
+                                iconColor: '#ff0040'
+                            });
+                        }
                     }
                 });
             }
             
             // Format date for display
-            function formatDate(dateString) {
-                const date = new Date(dateString);
+            function formatDate(date) {
+                if (!date) return 'Tanggal tidak tersedia';
+                
                 return date.toLocaleDateString('id-ID', {
                     day: 'numeric',
                     month: 'long',
@@ -1996,7 +2108,7 @@
             
             // Enhanced Comment Form Submission with SweetAlert
             if (commentForm) {
-                commentForm.addEventListener('submit', function(e) {
+                commentForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     
                     const nameInput = document.getElementById('comment-name');
@@ -2020,37 +2132,46 @@
                         return;
                     }
                     
-                    // Get existing comments
-                    const comments = JSON.parse(localStorage.getItem('portfolioComments')) || [];
-                    
-                    // Add new comment
-                    comments.push({
-                        name: name,
-                        text: text,
-                        date: new Date().toISOString()
-                    });
-                    
-                    // Save to localStorage
-                    localStorage.setItem('portfolioComments', JSON.stringify(comments));
-                    
-                    // Clear form
-                    nameInput.value = '';
-                    textInput.value = '';
-                    
-                    // Reload comments
-                    loadComments();
-                    
-                    // SweetAlert success notification
-                    Swal.fire({
-                        title: 'Komentar Terkirim!',
-                        text: 'Terima kasih atas feedback Anda!',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                        background: '#0a0a0a',
-                        color: '#ffffff',
-                        confirmButtonColor: '#ff0040',
-                        iconColor: '#ff0040'
-                    });
+                    try {
+                        const db = window.firebaseDB;
+                        const { collection, addDoc, serverTimestamp } = window.firebaseFunctions;
+                        
+                        // Add new comment to Firebase
+                        await addDoc(collection(db, "comments"), {
+                            name: name,
+                            text: text,
+                            createdAt: serverTimestamp()
+                        });
+                        
+                        // Clear form
+                        nameInput.value = '';
+                        textInput.value = '';
+                        
+                        // SweetAlert success notification
+                        Swal.fire({
+                            title: 'Komentar Terkirim!',
+                            text: 'Terima kasih atas feedback Anda!',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            background: '#0a0a0a',
+                            color: '#ffffff',
+                            confirmButtonColor: '#ff0040',
+                            iconColor: '#ff0040'
+                        });
+                    } catch (error) {
+                        console.error('Error adding comment:', error);
+                        // SweetAlert error notification
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Gagal mengirim komentar. Silakan coba lagi.',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            background: '#0a0a0a',
+                            color: '#ffffff',
+                            confirmButtonColor: '#ff0040',
+                            iconColor: '#ff0040'
+                        });
+                    }
                 });
             }
             
